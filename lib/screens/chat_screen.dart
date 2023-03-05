@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
               width: 10,
             ),
             Text(
-              "Your OpenAI's ChatGPT",
+              "ChatGPT Flutter App",
               maxLines: 1,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
