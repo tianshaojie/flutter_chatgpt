@@ -51,7 +51,7 @@ class ApiService {
             {"role": "user", "content": message}
           ]
         }),
-      ).timeout(const Duration(seconds: 30));
+      ).timeout(const Duration(seconds: 45));
       List<ChatModel> chatList = [];
       if (response.statusCode == 200) {
         Utf8Decoder utf8decoder = const Utf8Decoder();

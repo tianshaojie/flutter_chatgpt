@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chatgpt/constants/api_consts.dart';
 import 'package:flutter_chatgpt/providers/chats_provider.dart';
 import 'package:flutter_chatgpt/providers/models_provider.dart';
 import 'package:flutter_chatgpt/screens/chat_screen.dart';
@@ -9,16 +10,19 @@ import 'package:flutter_chatgpt/services/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/constants.dart';
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
   // if (Platform.isMacOS) {
   //   runApp(const MacApp());
   // } else {
-    runApp(const App());
+  //   runApp(const App());
   // }
+  runApp(const App());
   configLoading();
+  initAppKey();
 }
 
 class MacApp extends StatelessWidget {
@@ -120,6 +124,14 @@ class App extends StatelessWidget {
         builder: EasyLoading.init(),
       ),
     );
+  }
+}
+
+Future<void> initAppKey() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? savedApiKey = prefs.getString('user_api_key');
+  if(savedApiKey != null && savedApiKey.isNotEmpty) {
+    API_KEY = savedApiKey;
   }
 }
 

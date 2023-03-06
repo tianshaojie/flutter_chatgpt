@@ -32,7 +32,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
   void initState() {
     _listScrollController = ScrollController();
     _textEditingController = TextEditingController();
-    _animationController = AnimationController(duration: Duration(milliseconds: 1500), vsync: this);
+    _animationController = AnimationController(duration: Duration(milliseconds: 1000), vsync: this);
     focusNode = FocusNode();
     super.initState();
   }
@@ -150,7 +150,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
                         },
                         icon: const Icon(
                           Icons.send,
-                          color: Colors.grey,
+                          color: Colors.white,
                         ))
                   ],
                 ),
