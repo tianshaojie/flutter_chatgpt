@@ -11,7 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/models_provider.dart';
+import '../providers/settings_provider.dart';
 import '../services/assets_manager.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -48,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<ModelsProvider>(context);
+    final modelsProvider = Provider.of<SettingsProvider>(context);
     final chatProvider = Provider.of<ChatProvider>(context);
     return Scaffold(
       backgroundColor: cardColor,
@@ -171,7 +171,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
     });
   }
 
-  Future<void> sendMessageFCT({required ModelsProvider modelsProvider,required ChatProvider chatProvider}) async {
+  Future<void> sendMessageFCT({required SettingsProvider modelsProvider,required ChatProvider chatProvider}) async {
     if (_isTyping) {
       EasyLoading.showToast('You cant send multiple messages at a time');
       return;

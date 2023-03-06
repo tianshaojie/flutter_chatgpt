@@ -59,8 +59,7 @@ class ApiService {
         final jsonResponse = json.decode(responseString);
         if (jsonResponse["choices"].length > 0) {
           chatList = List.generate(
-            jsonResponse["choices"].length, (index) => ChatModel(msg: jsonResponse["choices"][index]['message']['content'], chatIndex: 1,
-            ),
+            jsonResponse["choices"].length, (index) => ChatModel(msg: jsonResponse["choices"][index]['message']['content'], chatIndex: 1,),
           );
         }
         // final message = data['choices'][0]['message']['content'].toString();

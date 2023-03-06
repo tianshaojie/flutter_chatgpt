@@ -1,4 +1,4 @@
-import 'package:flutter_chatgpt/providers/models_provider.dart';
+import 'package:flutter_chatgpt/providers/settings_provider.dart';
 import 'package:flutter_chatgpt/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,7 +20,7 @@ class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
   bool isFirstLoading = true;
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
+    final modelsProvider = Provider.of<SettingsProvider>(context, listen: false);
     currentModel = modelsProvider.getCurrentModel;
     return FutureBuilder<List<ModelsModel>>(
         future: modelsProvider.getAllModels(),

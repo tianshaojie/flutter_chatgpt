@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chatgpt/constants/api_consts.dart';
 import 'package:flutter_chatgpt/providers/chats_provider.dart';
-import 'package:flutter_chatgpt/providers/models_provider.dart';
+import 'package:flutter_chatgpt/providers/settings_provider.dart';
 import 'package:flutter_chatgpt/screens/chat_screen.dart';
 import 'package:flutter_chatgpt/services/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -56,7 +56,7 @@ class _MacosMainViewState extends State<MacosMainView> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => ModelsProvider(),
+          create: (_) => SettingsProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => ChatProvider(),
@@ -104,7 +104,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => ModelsProvider(),
+          create: (_) => SettingsProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => ChatProvider(),
