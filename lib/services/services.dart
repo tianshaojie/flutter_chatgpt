@@ -18,7 +18,7 @@ class Services {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user_api_key', _inputValue);
       API_KEY = _inputValue;
-      EasyLoading.showSuccess("Your ApiKey has been saved successfully!");
+      EasyLoading.showSuccess("Your api key has been saved successfully!");
     }
     await showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -55,7 +55,7 @@ class Services {
                     Container(
                       width: 160,
                       child: Text(
-                        "Set Your AppKey:",
+                        "Set Your Api Key:",
                         style: TextStyle(fontSize: 16, color: Colors.white),
                         textAlign: TextAlign.left,
                       ),
@@ -81,8 +81,8 @@ class Services {
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: Text(
-                          "Your Current AppKey is : $API_KEY",
-                          textAlign: TextAlign.right,
+                          "Your current api key is : $API_KEY",
+                          textAlign: TextAlign.center,
                         ),
                       )
                     ),

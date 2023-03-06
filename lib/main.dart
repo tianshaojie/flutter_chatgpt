@@ -22,7 +22,7 @@ Future<void> main(List<String> args) async {
   // }
   runApp(const App());
   configLoading();
-  initAppKey();
+  initApiKey();
 }
 
 class MacApp extends StatelessWidget {
@@ -127,7 +127,7 @@ class App extends StatelessWidget {
   }
 }
 
-Future<void> initAppKey() async {
+Future<void> initApiKey() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? savedApiKey = prefs.getString('user_api_key');
   if(savedApiKey != null && savedApiKey.isNotEmpty) {
