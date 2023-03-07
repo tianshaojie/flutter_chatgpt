@@ -1,16 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chatgpt/constants/api_consts.dart';
+import 'package:flutter_chatgpt/pages/chat_page.dart';
+import 'package:flutter_chatgpt/pages/setting_page.dart';
 import 'package:flutter_chatgpt/providers/chats_provider.dart';
 import 'package:flutter_chatgpt/providers/settings_provider.dart';
-import 'package:flutter_chatgpt/screens/chat_screen.dart';
-import 'package:flutter_chatgpt/services/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/constants.dart';
 
@@ -21,8 +17,7 @@ Future<void> main(List<String> args) async {
   //   runApp(const App());
   // }
   runApp(const App());
-  configLoading();
-  initApiKey();
+  // configLoading();
 }
 
 class MacApp extends StatelessWidget {
@@ -32,7 +27,7 @@ class MacApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MacosApp(
-      title: 'Your ChatGPT',
+      title: 'ChatGPT',
       theme: MacosThemeData(brightness: Brightness.dark, canvasColor: scaffoldBackgroundColor),
       darkTheme: MacosThemeData(brightness: Brightness.dark, canvasColor: scaffoldBackgroundColor),
       themeMode: ThemeMode.system,
@@ -68,7 +63,7 @@ class _MacosMainViewState extends State<MacosMainView> {
           toolBar: ToolBar(
             dividerColor: scaffoldBackgroundColor,
             padding: const EdgeInsets.fromLTRB(80,5,5,5),
-            title: const Text('Your ChatGPT'),
+            title: const Text('ChatGPT'),
             actions: [
               ToolBarIconButton(
                 label: 'Chosen Model',
@@ -76,7 +71,7 @@ class _MacosMainViewState extends State<MacosMainView> {
                 showLabel: false,
                 tooltipMessage: 'Chosen Model',
                 onPressed: () async {
-                  await Services.showModalSheet(context: context);
+                  await SettingsPage.showModalSheet(context: context);
                 },
               )
             ],
@@ -84,7 +79,7 @@ class _MacosMainViewState extends State<MacosMainView> {
           children: [
             ContentArea(
               builder: (context, scrollController) {
-                return const ChatScreen();
+                return const ChatPage();
               },
             ),
           ],
@@ -114,36 +109,27 @@ class App extends StatelessWidget {
         title: 'Flutter ChatGPT',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            backgroundColor: cardColor,
             scaffoldBackgroundColor: cardColor,
             cardColor: cardColor,
             appBarTheme: AppBarTheme(
               color: scaffoldBackgroundColor,
             )),
-        home: const ChatScreen(),
+        home: const ChatPage(),
         builder: EasyLoading.init(),
       ),
     );
   }
 }
 
-Future<void> initApiKey() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? savedApiKey = prefs.getString('user_api_key');
-  if(savedApiKey != null && savedApiKey.isNotEmpty) {
-    API_KEY = savedApiKey;
-  }
-}
-
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 3000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..textColor = Colors.white
-    ..userInteractions = true
-    ..toastPosition = EasyLoadingToastPosition.bottom
-    ..dismissOnTap = false;
-}
+// void configLoading() {
+//   EasyLoading.instance
+//     ..displayDuration = const Duration(milliseconds: 3000)
+//     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+//     ..loadingStyle = EasyLoadingStyle.dark
+//     ..indicatorSize = 45.0
+//     ..radius = 10.0
+//     ..textColor = Colors.white
+//     ..userInteractions = true
+//     ..toastPosition = EasyLoadingToastPosition.bottom
+//     ..dismissOnTap = false;
+// }

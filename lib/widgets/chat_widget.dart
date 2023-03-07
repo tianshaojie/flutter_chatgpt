@@ -1,5 +1,5 @@
 import 'package:flutter_chatgpt/constants/constants.dart';
-import 'package:flutter_chatgpt/services/assets_manager.dart';
+import 'package:flutter_chatgpt/constants/assets.dart';
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatelessWidget {
@@ -28,7 +28,7 @@ class ChatWidget extends StatelessWidget {
                     : Transform.rotate(
                         angle: 0,
                         child: Image.asset(
-                          AssetsManager.botImage,
+                          Assets.botImage,
                           height: 28,
                           width: 28,
                         )),

@@ -6,12 +6,18 @@ class RotatingImage extends StatefulWidget {
   final String imagePath;
   final double size;
   final AnimationController animationController;
-  RotatingImage({required this.imagePath, required this.size, required this.animationController});
+
+  RotatingImage(
+      {required this.imagePath,
+      required this.size,
+      required this.animationController});
+
   @override
   _RotatingImageState createState() => _RotatingImageState(animationController);
 }
 
-class _RotatingImageState extends State<RotatingImage> with SingleTickerProviderStateMixin {
+class _RotatingImageState extends State<RotatingImage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   _RotatingImageState(this._animationController);

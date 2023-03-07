@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chatgpt/constants/api_consts.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../widgets/drop_down.dart';
-import '../widgets/text_widget.dart';
+import '../providers/settings_provider.dart';
+import '../widgets/drop_down_widget.dart';
 
-class Services {
+class SettingsPage {
   static Future<void> showModalSheet({required BuildContext context}) async {
-    String _inputValue = '';
-    Future<void> _saveInputValue() async {
-      if(_inputValue.isEmpty) {
-        EasyLoading.showError("Please enter your api key!");
-        return;
-      }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('user_api_key', _inputValue);
-      API_KEY = _inputValue;
-      EasyLoading.showSuccess("Your api key has been saved successfully!");
-    }
+    String _inputApiKey = '';
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
     await showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -31,7 +21,7 @@ class Services {
       builder: (BuildContext context) => IntrinsicHeight(
         child: Container(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 30, 18, 18),
+            padding: const EdgeInsets.fromLTRB(18, 25, 18, 18),
             child: Column(
               children: [
                 Row(
@@ -45,10 +35,10 @@ class Services {
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    Flexible(child: ModelsDrowDownWidget()),
+                    Flexible(child: ModelsDropDownWidget()),
                   ],
                 ),
-                SizedBox(height: 8,),
+                SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -69,7 +59,7 @@ class Services {
                       ),
                       style: TextStyle(color: Colors.white),
                       onChanged: (value) {
-                        _inputValue = value;
+                        _inputApiKey = value;
                       }
                     )),
                   ],
@@ -80,9 +70,9 @@ class Services {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: Text(
-                          "Your current api key is : $API_KEY",
-                          textAlign: TextAlign.center,
+                        child: SelectableText(
+                          "Your current api key is : ${settingsProvider.apiKey}",
+                          textAlign: TextAlign.right,
                         ),
                       )
                     ),
@@ -93,12 +83,17 @@ class Services {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(30),
+                        padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
                         child: ElevatedButton(
                           child: Text("Save"),
                           onPressed: () async {
-                            await _saveInputValue();
+                            if(_inputApiKey.isEmpty) {
+                              EasyLoading.showError("Please enter your api key!");
+                              return;
+                            }
+                            settingsProvider.saveSettings(_inputApiKey);
                             Navigator.pop(context);
+                            EasyLoading.showSuccess("Your api key has been saved successfully!");
                           },
                         ),
                       )

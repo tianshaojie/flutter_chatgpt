@@ -1,27 +1,26 @@
-import 'package:flutter_chatgpt/providers/settings_provider.dart';
-import 'package:flutter_chatgpt/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chatgpt/providers/settings_provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../models/models_model.dart';
 
-class ModelsDrowDownWidget extends StatefulWidget {
-  const ModelsDrowDownWidget({super.key});
+class ModelsDropDownWidget extends StatefulWidget {
+  const ModelsDropDownWidget({super.key});
 
   @override
-  State<ModelsDrowDownWidget> createState() => _ModelsDrowDownWidgetState();
+  State<ModelsDropDownWidget> createState() => _ModelsDropDownWidgetState();
 }
 
-class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
+class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
   String? currentModel;
 
   bool isFirstLoading = true;
   @override
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<SettingsProvider>(context, listen: false);
-    currentModel = modelsProvider.getCurrentModel;
+    currentModel = modelsProvider.model;
     return FutureBuilder<List<ModelsModel>>(
         future: modelsProvider.getAllModels(),
         builder: (context, snapshot) {
@@ -35,8 +34,13 @@ class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
             );
           }
           if (snapshot.hasError) {
-            return Center(
-              child: TextWidget(label: snapshot.error.toString()),
+            return Text(
+              snapshot.error.toString(),
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15
+              ),
             );
           }
           return snapshot.data == null || snapshot.data!.isEmpty
@@ -46,21 +50,24 @@ class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
                     dropdownColor: scaffoldBackgroundColor,
                     iconEnabledColor: Colors.white,
                     items: List<DropdownMenuItem<String>>.generate(
-                        snapshot.data!.length,
-                        (index) => DropdownMenuItem(
-                            value: snapshot.data![index].id,
-                            child: TextWidget(
-                              label: snapshot.data![index].id,
-                              fontSize: 15,
-                            )
+                      snapshot.data!.length,
+                      (index) => DropdownMenuItem(
+                        value: snapshot.data![index].id,
+                        child: Text(
+                          snapshot.data![index].id,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15
+                          ),
                         )
+                      )
                     ),
                     value: currentModel,
                     onChanged: (value) {
                       setState(() {
                         currentModel = value.toString();
                       });
-                      modelsProvider.setCurrentModel(value.toString(),);
+                      modelsProvider.setModel(value.toString(),);
                     },
                   ),
                 );

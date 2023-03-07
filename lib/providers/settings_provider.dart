@@ -1,52 +1,49 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_chatgpt/constants/constants.dart';
 import 'package:flutter_chatgpt/models/models_model.dart';
 import 'package:flutter_chatgpt/services/api_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constants/api_consts.dart';
-
 class SettingsProvider with ChangeNotifier {
-  String currentModel = "gpt-3.5-turbo-0301";
-  String apiKey = "";
+  String _apiKey = "";
+  String _model = "";
+  List<ModelsModel> _modelsList = [];
 
-  String get getApiKey {
-    return apiKey;
+  SettingsProvider() {
+    initSettings();
   }
 
-  Future<void> setApiKey(String key) async {
-    if(key.isEmpty) {
-      return;
-    }
-    apiKey = key;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_api_key', key);
-    API_KEY = key;
-    notifyListeners();
-  }
+  String get apiKey => _apiKey;
 
-  String get getCurrentModel {
-    return currentModel;
-  }
+  String get model => _model;
 
-  Future<void> setCurrentModel(String newModel) async {
+  Future<void> setModel(String newModel) async {
     if(newModel.isEmpty) {
       return;
     }
-    currentModel = newModel;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_api_model', newModel);
+    API_MODEL = _model = newModel;
     notifyListeners();
   }
 
-  List<ModelsModel> modelsList = [];
-
-  List<ModelsModel> get getModelsList {
-    return modelsList;
-  }
+  List<ModelsModel> get modelsList => _modelsList;
 
   Future<List<ModelsModel>> getAllModels() async {
-    modelsList = await ApiService.getModels();
-    modelsList.removeWhere((element) => !element.id.contains("gpt"));
-    return modelsList;
+    _modelsList = await ApiService.getModels();
+    _modelsList.removeWhere((element) => !element.id.contains("gpt"));
+    return _modelsList;
+  }
+
+  Future<void> initSettings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    API_KEY = _apiKey = prefs.getString('user_api_key') ?? "";
+    API_MODEL = _model = prefs.getString('user_api_model') ?? API_MODEL;
+    notifyListeners();
+  }
+
+  Future<void> saveSettings(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('user_api_key', _apiKey);
+    prefs.setString('user_api_model', _model);
+    notifyListeners();
   }
 }
