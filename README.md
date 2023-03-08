@@ -1,16 +1,9 @@
-# flutter_chatgpt
+# ChatGPT Flutter Project
 
-ChatGPT Flutter App.
+ChatGPT-3.5-Turbo client developed by flutter.
 
-## Getting Started
+## Preview
 
-This project is a starting point for a Flutter application.
+![](assets/images/set_key.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](assets/images/app.png)
