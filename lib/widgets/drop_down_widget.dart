@@ -19,10 +19,10 @@ class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
   bool isFirstLoading = true;
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<SettingsProvider>(context, listen: false);
-    currentModel = modelsProvider.model;
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    currentModel = settingsProvider.model;
     return FutureBuilder<List<ModelsModel>>(
-        future: modelsProvider.getAllModels(),
+        future: settingsProvider.getAllModels(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting &&isFirstLoading == true) {
             isFirstLoading= false;
@@ -67,7 +67,7 @@ class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
                       setState(() {
                         currentModel = value.toString();
                       });
-                      modelsProvider.setModel(value.toString(),);
+                      settingsProvider.setModel(value.toString(),);
                     },
                   ),
                 );

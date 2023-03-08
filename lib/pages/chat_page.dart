@@ -117,7 +117,7 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
                         controller: _textEditingController,
                         onSubmitted: (value) async {
                           await sendMessageAndGetAnswers(
-                              modelsProvider: settingsProvider,
+                              settingsProvider: settingsProvider,
                               chatProvider: chatProvider);
                         },
                         decoration: const InputDecoration(
@@ -128,7 +128,7 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
                     IconButton(
                       onPressed: () async {
                         await sendMessageAndGetAnswers(
-                            modelsProvider: settingsProvider,
+                            settingsProvider: settingsProvider,
                             chatProvider: chatProvider);
                       },
                       icon: const Icon(
@@ -155,7 +155,12 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
     });
   }
 
-  Future<void> sendMessageAndGetAnswers({required SettingsProvider modelsProvider,required ChatProvider chatProvider}) async {
+  Future<void> sendMessageAndGetAnswers({required SettingsProvider settingsProvider,required ChatProvider chatProvider}) async {
+    if(settingsProvider.apiKey.isEmpty) {
+      EasyLoading.showError("Please set up an API key!");
+      return;
+    }
+
     if (_isTyping) {
       EasyLoading.showToast("You can't send multiple messages at the same time");
       return;
@@ -174,7 +179,7 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
         focusNode.unfocus();
         _animationController.repeat();
       });
-      await chatProvider.sendMessageAndGetAnswers(msg: msg, chosenModelId: modelsProvider.model);
+      await chatProvider.sendMessageAndGetAnswers(msg: msg, chosenModelId: settingsProvider.model);
       setState(() {
       });
     } catch (error) {

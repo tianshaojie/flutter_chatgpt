@@ -45,16 +45,16 @@ class SettingsPage {
                     Container(
                       width: 160,
                       child: Text(
-                        "Set Your Api Key:",
+                        "Set up your API key:",
                         style: TextStyle(fontSize: 16, color: Colors.white),
                         textAlign: TextAlign.left,
                       ),
                     ),
                     Flexible(child: TextField(
-                      textAlign: TextAlign.right,
+                      textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: 'Enter your api key and click the Save button',
-                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
                         border: UnderlineInputBorder(),
                       ),
                       style: TextStyle(color: Colors.white),
@@ -64,20 +64,20 @@ class SettingsPage {
                     )),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: SelectableText(
-                          "Your current api key is : ${settingsProvider.apiKey}",
-                          textAlign: TextAlign.right,
-                        ),
-                      )
-                    ),
-                  ]
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Expanded(
+                //       child: Padding(
+                //         padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                //         child: SelectableText(
+                //           "Your current api key is : ${settingsProvider.apiKey}",
+                //           textAlign: TextAlign.right,
+                //         ),
+                //       )
+                //     ),
+                //   ]
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
